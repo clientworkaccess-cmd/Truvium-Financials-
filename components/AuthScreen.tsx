@@ -45,9 +45,23 @@ export const AuthScreen: React.FC = () => {
     <div className="min-h-screen w-full flex items-center justify-center p-4 relative overflow-hidden bg-slate-50">
         {/* Ambient Background - Matching Main App */}
         <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-0 -left-4 w-96 h-96 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob"></div>
-          <div className="absolute top-0 -right-4 w-96 h-96 bg-violet-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-2000"></div>
-          <div className="absolute -bottom-8 left-20 w-96 h-96 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-30 animate-blob animation-delay-4000"></div>
+          {/* Top Left - Purple */}
+          <div className="absolute top-0 -left-10 w-[500px] h-[500px] bg-purple-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob"></div>
+          
+          {/* Top Right - Violet */}
+          <div className="absolute top-0 -right-10 w-[500px] h-[500px] bg-violet-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-reverse animation-delay-2000"></div>
+          
+          {/* Bottom Left - Pink */}
+          <div className="absolute -bottom-20 -left-20 w-[600px] h-[600px] bg-pink-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-4000"></div>
+          
+          {/* Bottom Right - Blue */}
+          <div className="absolute -bottom-40 -right-20 w-[500px] h-[500px] bg-blue-200 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob-reverse animation-delay-6000"></div>
+          
+          {/* Center/Random - Fuchsia */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-fuchsia-200 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-8000"></div>
+          
+          {/* Top Center - Indigo */}
+          <div className="absolute top-20 left-1/3 w-[300px] h-[300px] bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-25 animate-blob-reverse animation-delay-10000"></div>
         </div>
 
         <div className="w-full max-w-md relative z-10">
