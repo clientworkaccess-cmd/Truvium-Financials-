@@ -144,11 +144,35 @@
         color: #2e1065;
       }
 
-      .markdown-body p {
-        margin-bottom: 0.75rem;
+      /* Compact Markdown Styles */
+      .markdown-body > *:first-child {
+        margin-top: 0;
       }
-      .markdown-body p:last-child {
+      .markdown-body > *:last-child {
         margin-bottom: 0;
+      }
+      .markdown-body p {
+        margin-bottom: 0.25em; /* Ultra-tight gap between paragraphs */
+        line-height: 1.4;
+      }
+      .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+        margin-top: 0.5em;
+        margin-bottom: 0.25em;
+        font-weight: 700;
+        color: #2e1065;
+        font-size: 0.95rem;
+      }
+      .markdown-body ul, .markdown-body ol {
+        margin-bottom: 0.25em;
+        padding-left: 1.25rem;
+        list-style-type: disc;
+      }
+      .markdown-body li {
+        margin-bottom: 0; /* No gap between list items */
+      }
+      .markdown-body strong {
+        color: #2e1065;
+        font-weight: 600;
       }
     </style>
   <script type="importmap">

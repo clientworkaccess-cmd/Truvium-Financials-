@@ -49,7 +49,7 @@ export const sendMessageToWebhook = async (
         return responseObj.output || responseObj.text || responseObj.message || responseObj.response || JSON.stringify(responseObj);
       }
 
-      return String(responseObj);
+      return JSON.parse(responseObj);
     } else {
       return await response.text();
     }

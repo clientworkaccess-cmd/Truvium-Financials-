@@ -15,6 +15,15 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   // Use a ref to keep track of if we should continue typing to avoid closure staleness
   const typingRef = useRef(false);
 
+  // Normalize text to avoid massive gaps from webhook responses
+  const cleanText = (text: string) => {
+    if (!text) return "";
+    // Replace 3 or more newlines with 2 (one empty line)
+    return text.replace(/\n{3,}/g, '\n\n');
+  };
+
+  const processedMessageText = cleanText(message.text);
+
   useEffect(() => {
     // Only apply effect if it's an agent message and it is the last one (newly arrived)
     if (message.sender === 'agent' && message.isLast) {
@@ -26,9 +35,9 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
       const typeChar = () => {
         if (!typingRef.current) return;
 
-        if (currentIndex < message.text.length) {
+        if (currentIndex < processedMessageText.length) {
           // Slice allows us to handle special characters slightly better than appending
-          setDisplayedText(message.text.slice(0, currentIndex + 1));
+          setDisplayedText(processedMessageText.slice(0, currentIndex + 1));
           currentIndex++;
           
           // Constant speed for smooth typewriter effect
@@ -44,14 +53,14 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
     } else {
       // If not last or not agent, show full text immediately
       typingRef.current = false;
-      setDisplayedText(message.text);
+      setDisplayedText(processedMessageText);
       setIsTypingEffectActive(false);
     }
 
     return () => {
       typingRef.current = false;
     };
-  }, [message.text, message.sender, message.isLast]);
+  }, [processedMessageText, message.sender, message.isLast]);
 
   return (
     <div 
@@ -77,7 +86,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
         <div className={`flex flex-col ${isUser ? 'items-end' : 'items-start'} min-w-0`}>
           <div 
             className={`
-              relative px-5 py-3 rounded-2xl text-sm leading-6 shadow-sm backdrop-blur-md
+              relative px-5 py-3 rounded-2xl text-sm shadow-sm backdrop-blur-md
               break-words whitespace-pre-wrap overflow-hidden transition-all duration-300
               ${isUser 
                 ? 'bg-gradient-to-br from-violet-600 to-indigo-600 text-white rounded-tr-sm shadow-violet-200/50' 
@@ -87,9 +96,9 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
           >
              {/* Using ReactMarkdown to safely render bot responses which might contain formatting */}
              {isUser ? (
-                <span className="font-medium tracking-wide">{message.text}</span>
+                <span className="font-medium tracking-wide leading-relaxed">{message.text}</span>
              ) : (
-                <div className="markdown-body prose prose-sm max-w-none prose-p:text-slate-700 prose-headings:text-truvium-dark prose-strong:text-truvium-dark break-words font-medium">
+                <div className="markdown-body font-medium leading-snug text-slate-700">
                    <ReactMarkdown>{displayedText}</ReactMarkdown>
                 </div>
              )}
