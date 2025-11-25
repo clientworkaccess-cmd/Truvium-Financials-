@@ -328,7 +328,7 @@ function App() {
 
         {/* Chat Area - Centered & Spacious */}
         <div 
-          className="flex-1 overflow-y-auto px-4 pt-28 pb-68 scroll-smooth" 
+          className="flex-1 overflow-y-auto px-4 pt-28 pb-72 scroll-smooth" 
           role="log" 
           aria-live="polite" 
           aria-relevant="additions"
@@ -348,7 +348,7 @@ function App() {
         </div>
 
         {/* Floating Input Area */}
-        <div className="absolute bottom-6 left-0 right-0 z-100 flex flex-col items-center gap-2 pointer-events-none">
+        <div className="absolute bottom-6 left-0 right-0 z-30 flex flex-col items-center gap-2 pointer-events-none">
             
             {/* Suggestions Pills - Full Width & Safe Centering */}
             {suggestions.length > 0 && (
@@ -358,12 +358,12 @@ function App() {
                   aria-label="Suggested responses"
                 >
                     {/* w-max + mx-auto ensures centering if fits, left-align if overflow */}
-                    <div className="flex gap-3 w-max mx-auto px-4">
+                    <div className="flex gap-3 w-max mx-auto px-4 py-2">
                         {suggestions.map((s, i) => (
                             <button 
                                 key={i} 
                                 onClick={() => setInputValue(s)}
-                                className="flex-shrink-0 whitespace-nowrap px-6 py-1 rounded-2xl bg-white/80 border border-white/60 hover:bg-violet-600 hover:text-white hover:border-violet-500 text-sm font-medium text-slate-600 transition-all flex items-center gap-2 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-violet-400"
+                                className="flex-shrink-0 whitespace-nowrap px-6 py-2.5 rounded-2xl bg-white/80 border border-white/60 hover:bg-violet-600 hover:text-white hover:border-violet-500 text-sm font-medium text-slate-600 transition-all flex items-center gap-2 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-violet-400"
                                 aria-label={`Send suggestion: ${s}`}
                             >
                                 <Sparkles size={14} className="opacity-70" aria-hidden="true" />
