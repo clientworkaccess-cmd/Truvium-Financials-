@@ -184,10 +184,13 @@ function App() {
   };
 
   const generateSuggestions = async (historyMsg: Message[]) => {
-      if (process.env.API_KEY) {
+      // Logic relies on service to check key availability
+      try {
           const historyStrings = historyMsg.slice(-5).map(m => `${m.sender}: ${m.text}`);
           const replies = await suggestReply(historyStrings);
           setSuggestions(replies);
+      } catch (e) {
+          console.error("Failed to generate suggestions", e);
       }
   };
 
@@ -395,7 +398,7 @@ function App() {
                     </div>
 
                     <div className="flex items-center gap-2 pr-1">
-                        {inputValue.length > 3 && (
+                        {inputValue.trim().length > 0 && (
                             <button 
                                 onClick={handleRefine}
                                 disabled={isRefining}
