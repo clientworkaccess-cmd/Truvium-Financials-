@@ -363,7 +363,7 @@ function App() {
                             <button 
                                 key={i} 
                                 onClick={() => setInputValue(s)}
-                                className="flex-shrink-0 whitespace-nowrap px-6 py-2.5 rounded-2xl bg-white/80 border border-white/60 hover:bg-violet-600 hover:text-white hover:border-violet-500 text-sm font-medium text-slate-600 transition-all flex items-center gap-2 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-violet-400"
+                                className="flex-shrink-0 whitespace-nowrap px-6 py-2 rounded-2xl bg-white/80 border border-white/60 hover:bg-violet-600 hover:text-white hover:border-violet-500 text-sm font-medium text-slate-600 transition-all flex items-center gap-2 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-violet-400"
                                 aria-label={`Send suggestion: ${s}`}
                             >
                                 <Sparkles size={14} className="opacity-70" aria-hidden="true" />

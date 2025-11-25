@@ -41,7 +41,7 @@ export const suggestReply = async (history: string[]): Promise<string[]> => {
     try {
         const ai = getAiClient();
         const conversation = history.join('\n');
-        const prompt = `Given the following chat history, suggest 3 very very short, professional responses for the user.\n\n${conversation}\n\nFormat: JSON array of strings.`;
+        const prompt = `Given the following chat history, suggest 3 short, professional responses for the user.\n\n${conversation}\n\nFormat: JSON array of strings.`;
 
         const response = await ai.models.generateContent({
             model: 'gemini-2.5-flash',
