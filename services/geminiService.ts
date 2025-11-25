@@ -1,11 +1,23 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Initialize the client with the API key from the environment.
-// System instruction: Assume process.env.API_KEY is pre-configured and valid.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+let aiInstance: GoogleGenAI | null = null;
+
+// Lazy initialization of the AI client
+const getAiClient = () => {
+  if (aiInstance) return aiInstance;
+
+  const apiKey = process.env.API_KEY;
+  if (!apiKey) {
+    throw new Error("Gemini API Key is not configured. Please check your environment variables.");
+  }
+
+  aiInstance = new GoogleGenAI({ apiKey });
+  return aiInstance;
+};
 
 export const refineText = async (text: string, tone: 'professional' | 'concise' | 'friendly'): Promise<string> => {
   try {
+    const ai = getAiClient();
     const prompt = `Rewrite the following text to be ${tone} suitable for a corporate chat environment. Do not add quotes or explanations, just the text.\n\nText: "${text}"`;
     
     // System instruction: Use ai.models.generateContent with model and contents.
@@ -18,12 +30,14 @@ export const refineText = async (text: string, tone: 'professional' | 'concise' 
     return response.text?.trim() || text;
   } catch (error) {
     console.error("Error refining text with Gemini:", error);
+    // Return original text if AI fails so the user flow isn't broken
     return text;
   }
 };
 
 export const suggestReply = async (history: string[]): Promise<string[]> => {
     try {
+        const ai = getAiClient();
         const conversation = history.join('\n');
         const prompt = `Given the following chat history, suggest 3 short, professional responses for the user.\n\n${conversation}\n\nFormat: JSON array of strings.`;
 
