@@ -1,0 +1,7 @@
+{
+  "name": "Truvium Connect",
+  "description": "A corporate glassmorphism chat interface for Truvium Financial employees, featuring AI-assisted drafting and webhook integration.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
