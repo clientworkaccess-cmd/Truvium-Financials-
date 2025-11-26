@@ -7,7 +7,7 @@ const getAiClient = () => {
   if (aiInstance) return aiInstance;
 
   // Use process.env.API_KEY if available, otherwise use the provided fallback key
-  const apiKey = process.env.API_KEY || "AIzaSyAWmHuUjidKrJU0WMil_mYl2Khz2lMgQ6Q";
+  const apiKey = import.meta.env.env.VITE_API_KEY ;
   
   if (!apiKey) {
     throw new Error("Gemini API Key is not configured. Please check your environment variables.");
