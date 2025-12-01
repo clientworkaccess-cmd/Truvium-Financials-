@@ -15,14 +15,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
   // Use a ref to keep track of if we should continue typing to avoid closure staleness
   const typingRef = useRef(false);
 
-  // Normalize text to avoid massive gaps from webhook responses
-  const cleanText = (text: string) => {
-    if (!text) return "";
-    // Replace 3 or more newlines with 2 (one empty line)
-    return text.replace(/\n{3,}/g, '\n\n');
-  };
-
-  const processedMessageText = cleanText(message.text);
+  const processedMessageText = message.text;
 
   useEffect(() => {
     // Only apply effect if it's an agent message and it is the last one (newly arrived)
@@ -64,7 +57,7 @@ export const ChatMessage: React.FC<ChatMessageProps> = ({ message }) => {
 
   return (
     <div 
-      className={`flex w-full mb-3 animate-fade-in-up ${isUser ? 'justify-end' : 'justify-start'}`}
+      className={`flex w-full animate-fade-in-up ${isUser ? 'justify-end' : 'justify-start'}`}
       role="listitem"
       aria-label={`${isUser ? 'You said' : 'Truvium said'}: ${message.text}`}
     >

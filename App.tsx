@@ -85,50 +85,50 @@ function App() {
       textareaRef.current.style.height = `${Math.min(textareaRef.current.scrollHeight, 100)}px`;
     }
   }, [inputValue]);
-
+  
   // Manage isLast property on messages
   useEffect(() => {
     if (messages.length > 0) {
         const updatedMessages = messages.map((msg, index) => ({
             ...msg,
             isLast: index === messages.length - 1
-        }));
+          }));
         
         const lastMsgOriginal = messages[messages.length - 1];
         const lastMsgUpdated = updatedMessages[updatedMessages.length - 1];
         
         if (lastMsgOriginal?.isLast !== lastMsgUpdated?.isLast) {
-             setMessages(updatedMessages);
+          setMessages(updatedMessages);
         }
-    }
-  }, [messages.length]);
-
-
-  const handleSend = async () => {
-    if (!inputValue.trim() || !currentUser) return;
-
-    const userMsg: Message = {
-      id: uuidv4(),
-      text: inputValue,
-      sender: 'user',
-      timestamp: new Date(),
-      isLast: false
-    };
-
-    setMessages(prev => {
+      }
+    }, [messages.length]);
+    
+    
+    const handleSend = async () => {
+      if (!inputValue.trim() || !currentUser) return;
+      
+      const userMsg: Message = {
+        id: uuidv4(),
+        text: inputValue,
+        sender: 'user',
+        timestamp: new Date(),
+        isLast: false
+      };
+      
+      setMessages(prev => {
         const resetLast = prev.map(m => ({ ...m, isLast: false }));
         return [...resetLast, userMsg];
-    });
-    
-    setInputValue('');
-    setSuggestions([]); 
-    setIsTyping(true);
-
-    if (textareaRef.current) {
+      });
+      
+      setInputValue('');
+      setSuggestions([]); 
+      setIsTyping(true);
+      
+      if (textareaRef.current) {
         textareaRef.current.style.height = 'auto';
-    }
-
-    try {
+      }
+      
+      try {
       // Send to n8n webhook with user details
       const responseText = await sendMessageToWebhook(
           userMsg.text, 
@@ -144,6 +144,7 @@ function App() {
         timestamp: new Date(),
         isLast: true
       };
+      console.log(responseText);
       
       setMessages(prev => [...prev, agentMsg]);
       
@@ -358,12 +359,12 @@ function App() {
                   aria-label="Suggested responses"
                 >
                     {/* w-max + mx-auto ensures centering if fits, left-align if overflow */}
-                    <div className="flex gap-3 w-max mx-auto px-4">
+                    <div className="flex gap-3 w-max mx-auto px-4 py-2">
                         {suggestions.map((s, i) => (
                             <button 
                                 key={i} 
                                 onClick={() => setInputValue(s)}
-                                className="flex-shrink-0 whitespace-nowrap px-6 py-1 rounded-2xl bg-white/80 border border-white/60 hover:bg-violet-600 hover:text-white hover:border-violet-500 text-sm font-medium text-slate-600 transition-all flex items-center gap-2 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-violet-400"
+                                className="flex-shrink-0 whitespace-nowrap px-6 py-2 rounded-2xl bg-white/80 border border-white/60 hover:bg-violet-600 hover:text-white hover:border-violet-500 text-sm font-medium text-slate-600 transition-all flex items-center gap-2 backdrop-blur-md shadow-sm hover:shadow-lg hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-violet-400"
                                 aria-label={`Send suggestion: ${s}`}
                             >
                                 <Sparkles size={14} className="opacity-70" aria-hidden="true" />
